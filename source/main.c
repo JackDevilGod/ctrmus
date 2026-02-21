@@ -110,7 +110,7 @@ static int changeFile(const char* ep_file, struct playbackInfo_t* playbackInfo)
 	/* If file is NULL, then only thread termination was requested. */
 	if(ep_file == NULL || playbackInfo == NULL)
 		return 0;
-	
+
 	//playbackInfo->file = strdup(ep_file);
 	if (memccpy(playbackInfo->file, ep_file, '\0', sizeof(playbackInfo->file)) == NULL)
 	{
@@ -294,6 +294,7 @@ int main(int argc, char **argv)
 	int			fileMax;
 	int			fileNum = 0;
 	int			from = 0;
+	bool 		shufflemode = false;
 	Thread			watchdogThread;
 	Handle			playbackFailEvent;
 	struct watchdogInfo	watchdogInfoIn;
@@ -417,6 +418,16 @@ int main(int argc, char **argv)
 				showControls();
 				keyLComboPressed = true;
 				continue;
+			}
+
+			if(kDown & KEY_DOWN)
+			{
+				shufflemode = !shufflemode;
+				if (shufflemode) {
+					puts("Shuffle on auto play is on.")
+				} else {
+					puts("Shuffle on auto play is off.")
+				}
 			}
 		}
 		// if R is pressed first
@@ -637,7 +648,16 @@ int main(int argc, char **argv)
 				error = 0;
 				continue;
 			}
-			fileNum += 1;
+			if (shufflemode) {
+				fileNum = rand() * fileMax;
+
+				if (fileNum >= fileMax || dirList.dirNum >= fileNum) {
+					error = 0;
+					continue;
+				}
+			} else {
+				fileNum += 1;
+			}
 			consoleSelect(&topScreenInfo);
 			consoleClear();
 			consoleSelect(&topScreenLog);
@@ -664,9 +684,9 @@ int main(int argc, char **argv)
 				unsigned hr, min, sec;
 				size_t seconds_played;
 
-				seconds_played = playbackInfo.samples_played / playbackInfo.samples_per_second; 
+				seconds_played = playbackInfo.samples_played / playbackInfo.samples_per_second;
 
-				hr = (seconds_played/3600); 
+				hr = (seconds_played/3600);
 				min = (seconds_played - (3600*hr))/60;
 				sec = (seconds_played -(3600*hr)-(min*60));
 
@@ -678,9 +698,9 @@ int main(int argc, char **argv)
 				unsigned hr, min, sec;
 				size_t seconds_total;
 
-				seconds_total = playbackInfo.samples_total / playbackInfo.samples_per_second; 
+				seconds_total = playbackInfo.samples_total / playbackInfo.samples_per_second;
 
-				hr = (seconds_total/3600); 
+				hr = (seconds_total/3600);
 				min = (seconds_total - (3600*hr))/60;
 				sec = (seconds_total -(3600*hr)-(min*60));
 
