@@ -424,9 +424,9 @@ int main(int argc, char **argv)
 			{
 				shufflemode = !shufflemode;
 				if (shufflemode) {
-					puts("Shuffle on auto play is on.")
+					puts("Shuffle on auto play is on.");
 				} else {
-					puts("Shuffle on auto play is off.")
+					puts("Shuffle on auto play is off.");
 				}
 			}
 		}
