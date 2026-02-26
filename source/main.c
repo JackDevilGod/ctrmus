@@ -34,7 +34,8 @@ static void showControls(void)
 			"A: Open File\n"
 			"B: Go up folder\n"
 			"Start: Exit\n"
-			"Browse: Up, Down, Left or Right\n");
+			"Browse: Up, Down, Left or Right\n"
+			"Shuffle togle: R+Left");
 }
 
 /**
