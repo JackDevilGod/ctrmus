@@ -265,7 +265,7 @@ static int listDir(int from, int max, int select, struct dirList_t dirList)
  *
  * \return	Number of files in current working folder, -1 on failure with
  *			errno set.
- */
+ */ 
 int getNumberFiles(void)
 {
 	DIR				*dp;
@@ -420,13 +420,13 @@ int main(int argc, char **argv)
 				continue;
 			}
 
-			if(kDown & KEY_DOWN)
+			if(kDown & KEY_RIGHT)
 			{
 				shufflemode = !shufflemode;
 				if (shufflemode) {
-					puts("Shuffle on auto play is on.");
+					puts("Shuffle mode is on.");
 				} else {
-					puts("Shuffle on auto play is off.");
+					puts("Shuffle mode is off.");
 				}
 			}
 		}
@@ -649,7 +649,7 @@ int main(int argc, char **argv)
 				continue;
 			}
 			if (shufflemode) {
-				fileNum = rand() * fileMax;
+				fileNum = rand() % fileMax;
 
 				if (fileNum >= fileMax || dirList.dirNum >= fileNum) {
 					error = 0;
