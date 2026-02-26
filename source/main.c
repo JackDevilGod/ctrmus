@@ -421,7 +421,7 @@ int main(int argc, char **argv)
 				continue;
 			}
 
-			if(kDown & KEY_DOWN)
+			if(kDown & KEY_RIGHT)
 			{
 				shufflemode = !shufflemode;
 				if (shufflemode) {
